@@ -22,25 +22,25 @@ const userInfoTransformer = o => {
   };
 };
 
-const repoTransformer = o => {
-  const { stargazers_count, name, description } = o;
-  return {
-    name,
-    description,
-    stargazers_count
-  };
-};
+// const repoTransformer = o => {
+//   const { stargazers_count, name, description } = o;
+//   return {
+//     name,
+//     description,
+//     stargazers_count
+//   };
+// };
 
-const fetchRepos = async url => {
-  try {
-    const response = await axios.get(url);
-    const repos = await response.data;
-    return repos.map(repoTransformer);
-  } catch (err) {
-    console.log("repos fetch error", err);
-    return err;
-  }
-};
+// const fetchRepos = async url => {
+//   try {
+//     const response = await axios.get(url);
+//     const repos = await response.data;
+//     return repos.map(repoTransformer);
+//   } catch (err) {
+//     console.log("repos fetch error", err);
+//     return err;
+//   }
+// };
 
 const fetchUser = async url => {
   try {
@@ -67,16 +67,16 @@ export const fetchUsers = () => async dispatch => {
       //   fetch user info + highest starred repo from repos
       users.forEach(async user => {
         user.info = await fetchUser(user.url);
-        const repos = await fetchRepos(user.repos_url);
-        user.repo = repos.reduce(
-          (highest, repo) => {
-            if (repo.stargazers_count > highest.stargazers_count) {
-              highest = repo;
-            }
-            return highest;
-          },
-          { stargazers_count: 0 }
-        );
+        // const repos = await fetchRepos(user.repos_url);
+        // user.repo = repos.reduce(
+        //   (highest, repo) => {
+        //     if (repo.stargazers_count > highest.stargazers_count) {
+        //       highest = repo;
+        //     }
+        //     return highest;
+        //   },
+        //   { stargazers_count: 0 }
+        // );
       });
 
       dispatch({

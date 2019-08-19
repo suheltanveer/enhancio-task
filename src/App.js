@@ -1,12 +1,12 @@
 import React from "react";
-import Home from "./components/home";
+import UserList from "./components/userList";
 import Page from "./components/page";
 
 function App() {
   return (
     <div className="App">
       <Page>
-        <Home />
+        <UserList />
       </Page>
     </div>
   );
