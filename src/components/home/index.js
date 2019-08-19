@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchRepos } from "../../actions";
+import { fetchUsers } from "../../actions";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchRepos();
+    this.props.fetchUsers();
   }
 
   render() {
-    const { repos } = this.props;
-    console.log(repos);
+    const { githubUsers } = this.props;
+    console.dir(JSON.stringify(githubUsers, null, 2));
 
     return (
       <section>
         <ul>
-          {repos &&
-            repos.map(r => {
+          {githubUsers &&
+            githubUsers.map(r => {
               return (
                 <li key={r.id}>
                   <img src={r.avatar_url} alt={r.login} />
@@ -33,11 +33,11 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    repos: state.repos
+    githubUsers: state.githubUsers
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchRepos }
+  { fetchUsers }
 )(Home);

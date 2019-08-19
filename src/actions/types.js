@@ -1,3 +1,3 @@
 export const types = {
-  GET_REPOS: "getRepos"
+  GET_USERS: "GET_USERS"
 };

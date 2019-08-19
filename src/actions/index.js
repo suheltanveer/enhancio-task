@@ -1,13 +1,13 @@
 import { types } from "./types";
 import axios from "axios";
 
-export const fetchRepos = () => async dispatch => {
-  // https://api.github.com/search/repositories?q=location:bangalore&sort=stars&order=desc
+export const fetchUsers = () => async dispatch => {
   await axios
     .get("https://api.github.com/search/users?q=location:bangalore")
     .then(res => {
+      // showing only first 10
       dispatch({
-        type: types.GET_REPOS,
+        type: types.GET_USERS,
         payload: res.data.items.slice(0, 10)
       });
     })
@@ -15,3 +15,5 @@ export const fetchRepos = () => async dispatch => {
       //   console.log(error);
     });
 };
+
+// https://api.github.com/search/repositories?q=location:bangalore&sort=stars&order=desc
