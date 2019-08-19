@@ -9,22 +9,30 @@ class Home extends Component {
 
   render() {
     const { githubUsers } = this.props;
-    console.dir(JSON.stringify(githubUsers, null, 2));
+    const { users, loading, error } = githubUsers;
+    console.log(users);
+
+    if (error) {
+      return <div>{error.message}</div>;
+    }
+
+    if (loading) {
+      return <div>loading...</div>;
+    }
 
     return (
       <section>
         <ul>
-          {githubUsers &&
-            githubUsers.map(r => {
-              return (
-                <li key={r.id}>
-                  <img src={r.avatar_url} alt={r.login} />
-                  <div>
-                    <div>{r.login}</div>
-                  </div>
-                </li>
-              );
-            })}
+          {users.map(r => {
+            return (
+              <li key={r.id}>
+                <img src={r.avatar_url} alt={r.login} />
+                <div>
+                  <div>{r.login}</div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </section>
     );
@@ -33,7 +41,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    githubUsers: state.githubUsers
+    githubUsers: state.users
   };
 };
 
