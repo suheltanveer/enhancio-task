@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUsers } from "../../actions";
+import { getData } from "../../actions";
+import styled from "styled-components";
+import UserListItem from "../userListItem";
+
+const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
 
 class UserList extends Component {
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.getData();
   }
 
   render() {
     const { githubUsers } = this.props;
     const { users, loading, error } = githubUsers;
-    console.log(users);
 
     if (error) {
       return <div>{error.message}</div>;
@@ -22,18 +29,11 @@ class UserList extends Component {
 
     return (
       <section>
-        <ul>
-          {users.map(r => {
-            return (
-              <li key={r.id}>
-                <img src={r.avatar_url} alt={r.login} />
-                <div>
-                  <div>{r.login}</div>
-                </div>
-              </li>
-            );
+        <List>
+          {users.map(user => {
+            return <UserListItem key={user.id} {...user} />;
           })}
-        </ul>
+        </List>
       </section>
     );
   }
@@ -47,5 +47,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchUsers }
+  { getData }
 )(UserList);

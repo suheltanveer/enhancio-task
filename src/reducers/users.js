@@ -28,6 +28,32 @@ export default (state = initialState, action) => {
         error: action.payload.error,
         users: []
       };
+
+    case types.GET_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case types.GET_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: state.users.map(user => {
+          if (action.payload.id === user.id) {
+            user = Object.assign({}, user, action.payload);
+          }
+          return user;
+        })
+      };
+
+    case types.GET_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+        users: []
+      };
     default:
       return state;
   }
